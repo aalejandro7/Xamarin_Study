@@ -11,24 +11,32 @@
 
     public class ApiService
     {
-        public async Task<TokenResponse> GetToken(string urlBase, string username, string password, string email)
+        public async Task<TokenResponse> GetToken(
+            string urlBase,
+            string servicePrefix,
+            string controller, 
+            string username, 
+            string password)
         {
             try
             {
                 var client = new HttpClient();
                 client.BaseAddress = new Uri(urlBase);
-                var response = await client.PostAsync("Token",
-                    new StringContent(string.Format(
-                    "grant_type=password&username={0}&password={1}",
-                    username, password),
-                    Encoding.UTF8, "application/x-www-form-urlencoded"));
-                var resultJSON = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<TokenResponse>(
-                    resultJSON);
-                return result;
+                var url = $"{servicePrefix}{controller}?email={username}&password={password}";
+                var response = await client.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(result);
+                return tokenResponse;
             }
-            catch
+            catch(Exception ex)
             {
+                ex.ToString();
                 return null;
             }
         }
@@ -61,15 +69,17 @@
             };
         }
 
-        public async Task<Response> Get<T>(
+        public async Task<Response> GetList<T>(
             string urlBase,
             string servicePrefix,
-            string controller)
+            string controller,
+            string token)
         {
             try
             {
                 var client = new HttpClient();
                 client.BaseAddress = new Uri(urlBase);
+                client.DefaultRequestHeaders.Add("token", token);
                 var url = $"{servicePrefix}{controller}";
                 var response = await client.GetAsync(url);
 
@@ -83,7 +93,7 @@
                 }
 
                 var result = await response.Content.ReadAsStringAsync();
-                var model = JsonConvert.DeserializeObject<T>(result);
+                var model = JsonConvert.DeserializeObject<List<T>>(result);
                 return new Response
                 {
                     IsSuccess = true,

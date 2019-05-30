@@ -1,17 +1,15 @@
 ﻿namespace Test.ViewModels
 {
-    using System.Windows.Input;
-    using GalaSoft.MvvmLight.Command;
-    using Views;
-    using Xamarin.Forms;
+    using Models;
 
     public class MainViewModel
     {
         #region Properties
-
         public LoginViewModel Login { get; set;}
 
+        public ProspectsViewModel Prospects { get; set; }
 
+        public TokenResponse TokenResponse { get; set; }
         #endregion
 
         #region Constructors

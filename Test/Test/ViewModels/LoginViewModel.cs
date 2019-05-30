@@ -58,6 +58,8 @@
             this.apiService = new ApiService();
             this.IsRemembered = true;
             this.IsEnabled = true;
+            this.Email = "directo@directo.com";
+            this.Password = "directo123";
         }
         #endregion
 
@@ -76,14 +78,14 @@
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error", "Email invalido", "Aceptar");
+                    "Error", "Debes ingresar un email.", "Aceptar");
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Password))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error", "Clave incorrecta", "Aceptar");
+                    "Error", "Debes ingresar una clave.", "Aceptar");
                 return;
             }
 
@@ -101,13 +103,15 @@
                 return;
             }
 
-            var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
+            var apiSecurity = Application.Current.Resources["ServiceURL"].ToString();
             var token = await this.apiService.GetToken(
-                ,
+                apiSecurity, 
+                "/application", 
+                "/login", 
                 this.Email,
                 this.Password);
 
-            if (token == null || string.IsNullOrEmpty(token.AccessToken))
+            if (token == null || string.IsNullOrEmpty(token.AuthToken))
             {
                 this.IsRunning = false;
                 this.IsEnabled = true;
@@ -116,12 +120,13 @@
                 return;
             }
 
+            MainViewModel.GetInstance().TokenResponse = token;
+
             this.IsRunning = false;
             this.IsEnabled = true;
-            await Application.Current.MainPage.DisplayAlert(
-                "Ok", "Melo", "Aceptar");
 
-
+            MainViewModel.GetInstance().Prospects = new ProspectsViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new ProspectsPage());
             #endregion
         }
     }

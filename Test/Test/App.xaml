@@ -1,8 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:infra="clr-namespace:Test.Infrastructure"
              x:Class="Test.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <!-- Locator -->
+            <infra:InstanceLocator x:Key="Locator"/>
 
+            <!-- Service URL -->
+            <x:String x:Key="ServiceURL">http://directotesting.igapps.co</x:String>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

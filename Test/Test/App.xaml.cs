@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Test.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Test.ViewModels;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Test
@@ -11,7 +12,8 @@ namespace Test
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainViewModel.GetInstance().Login = new LoginViewModel();
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()
