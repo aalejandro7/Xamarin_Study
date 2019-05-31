@@ -58,8 +58,6 @@
             this.apiService = new ApiService();
             this.IsRemembered = true;
             this.IsEnabled = true;
-            this.Email = "directo@directo.com";
-            this.Password = "directo123";
         }
         #endregion
 

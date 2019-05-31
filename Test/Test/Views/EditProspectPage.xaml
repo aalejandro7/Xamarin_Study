@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Test.Views.EditProspectsPage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             Title="Editar prospecto">
+    <ContentPage.Content>
+        <ScrollView
+            BindingContext="{Binding EditProspect}">
+            <StackLayout
+                Padding="10">
+                <Label 
+                    Text="{Binding Id}">
+                </Label>
+                
+                <Label
+                    Text="Nombre:">
+                </Label>
+                <Entry
+                    Text="{Binding Name, Mode=TwoWay}"
+                    Placeholder="Ingrese nombre del prospecto...">
+                </Entry>
+
+                <Label
+                    Text="Apellido:">
+                </Label>
+                <Entry
+                    Text="{Binding Surname, Mode=TwoWay}"
+                    Placeholder="Ingrese apellido prospecto...">
+                </Entry>
+
+                <Label
+                    Text="Teléfono:">
+                </Label>
+                <Entry
+                    
+                    Text="{Binding Telephone, Mode=TwoWay}"
+                    Placeholder="Ingrese teléfono prospecto...">
+                </Entry>
+
+                <Label
+                    Text="Direccón:">
+                </Label>
+                <Entry
+                    Text="{Binding Address, Mode=TwoWay}"
+                    Placeholder="Ingrese dirección...">
+                </Entry>
+
+                <ActivityIndicator
+                    IsRunning="{Binding IsRunning, Mode=TwoWay}"
+                    VerticalOptions="CenterAndExpand">
+                </ActivityIndicator>
+
+                <Button
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="Navy"
+                    BorderRadius="23"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Margin="50,0"
+                    Text="Guardar"
+                    TextColor="White"
+                    VerticalOptions="EndAndExpand">
+                </Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

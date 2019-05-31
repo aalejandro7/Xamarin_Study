@@ -5,7 +5,9 @@
     public class MainViewModel
     {
         #region Properties
-        public LoginViewModel Login { get; set;}
+        public LoginViewModel Login { get; set; }
+
+        public EditProspectViewModel EditProspect { get; set; }
 
         public ProspectsViewModel Prospects { get; set; }
 

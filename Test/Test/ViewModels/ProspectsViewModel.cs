@@ -75,6 +75,11 @@ namespace Test.ViewModels
             this.Prospects = new ObservableCollection<Prospect>(prospects);
             this.IsRefreshing = false;
         }
+
+        public static implicit operator ProspectsViewModel(EditProspectViewModel v)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }
